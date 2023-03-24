@@ -7,4 +7,8 @@ COPY $SG_DEB /$SG_DEB
 
 RUN apt update -y && apt install -y systemctl
 
-RUN dpkg -i $SG_DEB
+RUN apt install -y ./$SG_DEB
+
+COPY sync_gateway_basic.json ./
+
+ENTRYPOINT ["/opt/couchbase-sync-gateway/bin/sync_gateway", "./sync_gateway_basic.json"]
